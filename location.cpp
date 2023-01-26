@@ -6,7 +6,7 @@
 /*   By: sahafid <sahafid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 16:34:43 by sahafid           #+#    #+#             */
-/*   Updated: 2023/01/24 11:19:24 by sahafid          ###   ########.fr       */
+/*   Updated: 2023/01/26 15:54:25 by sahafid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void    Servers::split_locations(std::vector<std::string> &server_info)
         std::vector<std::string> info = split(*it, ' ');
         if (info[0] == "location")
         {
-            if (info.size() != 3 || info[1][0] != '/' || info[2] != "{")
+            if (info.size() != 3 || (info[1][0] != '/' && info[1] != "*.php") || info[2] != "{")
                 throw std::invalid_argument("Syntax Error: invalid location");
             braket++;
             std::vector<std::string> rawlocation;
@@ -42,18 +42,57 @@ void    Servers::split_locations(std::vector<std::string> &server_info)
     }
 }
 
+void    Locations::enterLocationData(std::vector<std::string> info)
+{
+    if (info[info.size() -1].empty())
+        info.erase(info.end()-1);
+    if (info.size() > 1)
+    {
+        if (info[0] == "uplaod_enable")
+            enterUploadEnab(info);
+        else if (info[0] == "upload_store")
+            this->upload_store = info[1];
+        else if (info[0] == "allow_methods")
+            enterAllowedMethodes(info);
+        else if (info[0] == "root")
+        {
+            if (info.size() == 2)
+                this->root = info[1];
+            else
+                throw std::invalid_argument("Syntax Error: wrong number of arguments"); 
+        }
+        else if (info[0] == "return")
+            enterReturn(info);
+        else if (info[0] == "autoindex")
+            enterIndex(info);
+        else if (info[0] == "fastcgi_pass")
+        {
+            if (info.size() == 2)
+                this->fatscgi_pass = info[1];
+            else
+                throw std::invalid_argument("Syntax Error: wrong number of arguments"); 
+        }
+    }
+    else
+        throw std::invalid_argument("Syntax Error: wrong number of arguments"); 
+}
+
 void    check_syntax(std::vector<Locations> &locations)
 {
-    
     for (std::vector<Locations>::iterator it = locations.begin(); it != locations.end(); it++)
     {
         Locations &currentDirective = *it;
         std::vector<std::string> location = currentDirective.raw_location;
-        currentDirective.directive = location[0];
-        for (std::vector<std::string>::iterator iter = location.begin(); iter != location.end(); iter++)
+        (*it).directive = location[0];
+        if (location.size() < 2)
+            throw std::invalid_argument("Syntax Error: Location block empty");
+        for (std::vector<std::string>::iterator iter = location.begin() + 1; iter != location.end(); iter++)
         {
             std::vector<std::string> info = split(*iter, ' ');
-            // if (info)
+            checkSemicolone(info);
+            trim(info[info.size() - 1], ';');
+            currentDirective.enterLocationData(info);
         }
     }
 }
+

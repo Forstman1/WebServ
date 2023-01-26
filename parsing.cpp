@@ -6,7 +6,7 @@
 /*   By: sahafid <sahafid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:12:23 by sahafid           #+#    #+#             */
-/*   Updated: 2023/01/23 18:49:47 by sahafid          ###   ########.fr       */
+/*   Updated: 2023/01/25 22:51:07 by sahafid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void    split_servers(std::vector<std::string> &lines, std::vector<Servers> &ser
 void    Config::parse_servers(Servers &server)
 {
     server.split_locations(server.raw_server);
+    server.client_max_body_size = -1;
     server.check_syntaxError(server.raw_server);
     check_syntax(server.locations);
 }
@@ -104,5 +105,8 @@ void    Config::parse(std::string filename)
     split_servers(lines, servers);
 
     for (std::vector<Servers>::iterator it = servers.begin(); it != servers.end(); it++)
+    {
         parse_servers(*it);
+        checkDataValidity(*it);
+    }
 }
