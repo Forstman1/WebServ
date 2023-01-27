@@ -6,7 +6,7 @@
 /*   By: sahafid <sahafid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 12:19:21 by sahafid           #+#    #+#             */
-/*   Updated: 2023/01/26 15:55:48 by sahafid          ###   ########.fr       */
+/*   Updated: 2023/01/27 11:21:40 by sahafid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,11 @@ int    allcodes(int code)
 
 void    Servers::errorPage(std::vector<std::string> info)
 {
-    static std::vector<int> saved_codes;
+    std::vector<int> saved_codes;
 
     int status = ft_stoi(info[1]);
-    if (std::find(saved_codes.begin(), saved_codes.end(), status) != saved_codes.end())
-        throw std::invalid_argument("Syntax error: duplicate status code");
+    // if (std::find(saved_codes.begin(), saved_codes.end(), status) != saved_codes.end())
+    //     throw std::invalid_argument("Syntax error: duplicate status code");
 
     if (allcodes(status))
     {
@@ -116,14 +116,6 @@ void    Servers::errorPage(std::vector<std::string> info)
     else
         throw std::invalid_argument("Syntax error: invalid status code");
 }
-
-
-
-
-
-
-
-
 
 
 void    Servers::check_syntaxError(std::vector<std::string> &server_info)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enterseverdata.cpp                                 :+:      :+:    :+:   */
+/*   enterserverdata.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sahafid <sahafid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:55:13 by sahafid           #+#    #+#             */
-/*   Updated: 2023/01/26 15:55:50 by sahafid          ###   ########.fr       */
+/*   Updated: 2023/01/27 11:12:12 by sahafid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,3 @@ void    Servers::enterData(std::vector<std::string> info)
         if (!info[0].empty())
             throw std::invalid_argument("Syntax Error: unknow argument"); 
 }
-

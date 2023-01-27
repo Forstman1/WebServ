@@ -6,7 +6,7 @@
 /*   By: sahafid <sahafid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:11:58 by sahafid           #+#    #+#             */
-/*   Updated: 2023/01/19 16:10:58 by sahafid          ###   ########.fr       */
+/*   Updated: 2023/01/27 10:42:52 by sahafid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int main(int ac, char **av)
 {
     try {
         Config conf;
-        std::map<std::string, std::string> allkeys;
         if (!av[1])
         {
             std::cerr << "file not found\n";

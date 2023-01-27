@@ -6,7 +6,7 @@
 /*   By: sahafid <sahafid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 13:45:25 by sahafid           #+#    #+#             */
-/*   Updated: 2023/01/26 15:52:48 by sahafid          ###   ########.fr       */
+/*   Updated: 2023/01/27 10:45:58 by sahafid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 class Locations {
     public:
         std::vector<std::string> raw_location;
+
+
         std::string root;
         std::string directive;
         std::string returned;
@@ -46,6 +48,8 @@ class errorPages {
         int status_code;
         std::string path;
 };
+
+
 
 class Servers {
     public:
